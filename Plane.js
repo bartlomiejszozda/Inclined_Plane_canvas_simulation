@@ -57,7 +57,8 @@ this.number+=1;
   }
 function drawRectangle(ctx,angle)
 {
-
+		ctx.fillStyle="#FF0000";
+		ctx.beginPath();
 		ctx.moveTo(this.pX,this.pY);
 
 		var nextX=this.pX+Math.cos(angle*Math.PI/180.0)*this.width;
@@ -70,7 +71,6 @@ function drawRectangle(ctx,angle)
 		nextY=nextY-Math.sin(angle*Math.PI/180.0)*this.width;
 		ctx.lineTo(nextX, nextY);					
 		ctx.lineTo(this.pX, this.pY);
-		ctx.fillStyle="#FF0000";
 		ctx.fill();
 
 }
@@ -138,6 +138,7 @@ function drawPlane()
 	var dt=parseFloat(document.form2.dt.value);
 	var rectLength=parseFloat(document.form2.Length.value);
 	var rectHeight=parseFloat(document.form2.Height.value);
+	var g =parseFloat(document.form3.g.value);
 	/*
 	var topX=0;
 	var topY=50;
@@ -151,7 +152,7 @@ function drawPlane()
 	body.width=canvasElem.width+250;
 	if(body.width<500)
 		body.width=500;*/
-	g=9.81;
+	//g=9.81;
 
 	var vX=0.0;
 	var vY=0.0;
@@ -227,14 +228,15 @@ function drawPlane()
 }
 function nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem,dt)
 {
-	document.getElementById('parametersDiv').innerHTML="czas: "+rectangle.time.toFixed(2)+" s"+"<br/>prędkość: "+Math.sqrt(rectangle.vX*rectangle.vX+rectangle.vY*rectangle.vY).toFixed(2)+" m/s";
+	var sina=Math.sin(angle*Math.PI/180.0);
+	var cosa=Math.cos(angle*Math.PI/180.0);
+	document.getElementById('parametersDiv').innerHTML="time: "+rectangle.time.toFixed(2)+" s"+"<br/>velocity: "+Math.sqrt(rectangle.vX*rectangle.vX+rectangle.vY*rectangle.vY).toFixed(2)+" m/s"+"<br/>acceleration: "+Math.sqrt((rectangle.aX-rectangle.frictionX)*(rectangle.aX-rectangle.frictionX)+(rectangle.aY-rectangle.frictionY)*(rectangle.aY-rectangle.frictionY)).toFixed(2) + " m/s<sup>2</sup>"+"<br/>max coefficient: "+((sina/cosa).toFixed(4));
 	ctx.clearRect(0, 0, canvasElem.width, canvasElem.height);
-
+	ctx.fillStyle="#191970";
 	ctx.beginPath();
 	ctx.moveTo(topX,topY);
 	ctx.lineTo(bottomX,bottomY);
 	ctx.lineTo(topX,bottomY);
-	ctx.fillStyle="#000000";
 	ctx.fill();
 	rectangle.drawRectangle(ctx,angle);
 	rectangle.nextPosition(dt);
@@ -245,6 +247,10 @@ function nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem,dt)
 function showOptions()
 {
 	document.getElementById('advancedOptions').style.display= 'block';
+}
+function hideOptions()
+{
+	document.getElementById('advancedOptions').style.display= 'none';
 }
 //wstawic header ktory bedzie cos tam pisal?
 //co wstawic do nav?

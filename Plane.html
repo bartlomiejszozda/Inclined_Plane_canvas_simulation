@@ -4,48 +4,58 @@
 	<title>Inclined Plane</title>
 	<script src="Plane.js" type="text/javascript"></script>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="planeStyle.css" type="text/css" />
 	<meta name="description" content="Inclined Plane Bartlomiej Szozda" />
 </head>
 <body>
 	<header>
 		<h2>Inclined Plane</h2>
 	</header>
+	
 	<section>
 		<header>
 			<h3>Set your options</h3>
 		</header>
-		<article style="float: left;">
+		<article style="">
 			<form name="form1"  method="post" >	
-				Inclined Plane length(meters)</br>
+				Plane length(meters)</br>
 				<input type="text" size="20" id="length" value="300"/></br>
 				Angle (degrees)</br>
 				<input type="text" size="20" id="angle" value ="30"/></br>
 				coefficient of friction</br>
-				<input type="text" size="20" id="friction" value ="0.1"/></br>
-				<button type='button' onclick="valid()">Go</button> 
-				<button type='button' onclick="showOptions()">moreOptions</button> 
-				<input type='checkbox' id="mute">mute</button> 
+				<input type="text" size="20" id="friction" value ="0.1"/></br></br>
+				<input type='checkbox' id="mute" checked>Mute</button>
+				&nbsp;&nbsp;&nbsp;
+				<button type='button' onclick="showOptions()" style="width: 96px;" >More options</button> </br></br>
+				<button type='button' onclick="valid()" style="width: 170px;">Go</button> 
 
 			</form>
 		</article>
-		<article id="advancedOptions" style="float: left; display: none; margin-left: 20px;">
-			<form name="form2"  method="post" >
+		<article id="advancedOptions" style="display: none; ">
+			<form name="form2"  method="post" style="float: left; ">
 				Display refresh period</br>
 				<input type="text" size="20" id="dt" value="0.03"/><br/>
 				Cuboid length(meters)</br>
 				<input type="text" size="20" id="Length" value ="10"/><br/>
 				Cuboid height(meters)</br>
-				<input type="text" size="20" id="Height" value ="6"/><br/>
+				<input type="text" size="20" id="Height" value ="6"/><br/><br/>
+				<button type='button' onclick="hideOptions()">Less options</button> 
+
+			</form>
+			<form name="form3"  method="post"  style="float: left; margin-left: 20px">
+				Acceleration of gravity</br>
+				<input type="text" size="20" id="g" value="9.81"/><br/>
 			</form>
 		</article>
 	</section>
 	<div style="clear: both;"></div>
-	<article id="parametersDiv" style="float: left; min-height: 100px; min-width: 150px; margin: 10px" >
-		czas: 0 s<br/>
-		prędkość: 0 m/s
+	<article id="parametersDiv" style="min-height: 100px; min-width: 150px;" >
+		time: 0 s<br/>
+		velocity: 0 m/s<br/>
+		acceleration: 0 m/s<sup>2</sup><br/>
+		max coefficient:<br/>
 	</article>
-	<article id="canvasDiv" style="float: left; margins: 10px" >
+	<article id="canvasDiv" style="" >
 		<canvas id="canvas" width="200" height="200" style="display: block;"></canvas>
 		</br>
 	</article>
