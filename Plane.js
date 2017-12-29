@@ -86,12 +86,32 @@ function valid()
 	
 	else if ((parseFloat(document.form1.length.value)<50)||(parseFloat(document.form1.length.value)>2000))
 	{
-		alert ("length value should be in 50:2000 ");
+		alert ("length value must be in [50,2000] ");
 		return false;
 	}
 	else if ((parseFloat(document.form1.angle.value)<0)||(parseFloat(document.form1.angle.value)>90))
 	{
-		alert ("angle value should be in 0:90 ");
+		alert ("angle value must be in [0,90] ");
+		return false;
+	}
+	else if ((parseFloat(document.form1.friction.value)<0)||(parseFloat(document.form1.friction.value)>1.0))
+	{
+		alert ("angle value must be in [0,1] ");
+		return false;
+	}
+	else if ((parseFloat(document.form2.dt.value)<=0)||(parseFloat(document.form2.dt.value)>100))
+	{
+		alert ("angle value must be in (0,100] ");
+		return false;
+	}
+	else if ((parseFloat(document.form2.Length.value)<=0)||(parseFloat(document.form2.Length.value)>=parseFloat(document.form1.length.value)))
+	{
+		alert ("Length value must be in (0,Plane Length) ");
+		return false;
+	}
+	else if ((parseFloat(document.form2.Height.value)<0)||(parseFloat(document.form2.Height.value)>50))
+	{
+		alert ("Height value must be in (0,50] ");
 		return false;
 	}
 	else 
@@ -102,6 +122,7 @@ function valid()
 	}
 //draw();
 }
+var numberOfTask=0;
 var topX=0;
 var topY=50;
 function drawPlane()      
@@ -110,14 +131,12 @@ function drawPlane()
 	const ctx = canvasElem.getContext('2d');
 	ctx.clearRect(0, 0, canvasElem.width, canvasElem.height);
 
-	var strtmp = document.form1.length.value;
-	var length=parseFloat(strtmp);
-	strtmp = document.form1.angle.value;
-	var angle=parseFloat(strtmp);
-	strtmp = document.form1.friction.value;
-	var friction=parseFloat(strtmp);
-	strtmp = document.form1.dt.value;
-	var dt=parseFloat(strtmp);
+	var length=parseFloat(document.form1.length.value);
+	var angle=parseFloat(document.form1.angle.value);
+	var friction=parseFloat(document.form1.friction.value);
+	var dt=parseFloat(document.form2.dt.value);
+	var rectLength=parseFloat(document.form2.Length.value);
+	var rectHeight=parseFloat(document.form2.Height.value);
 	/*
 	var topX=0;
 	var topY=50;
@@ -125,8 +144,7 @@ function drawPlane()
 	var sina=Math.sin(angle*Math.PI/180.0);
 	var cosa=Math.cos(angle*Math.PI/180.0) ;
 	g=9.81;
-	var rectLength=30;
-	var rectHeight=20;
+
 	var vX=0.0;
 	var vY=0.0;
 
@@ -140,15 +158,23 @@ function drawPlane()
 	//for(i=0; i<150;i++)
 	//while(rectangle.pX <bottomX- Math.cos(angle*Math.PI/180.0)*rectLength  && rectangle.pY < bottomY- Math.sin(angle*Math.PI/180.0)*rectLength)
 	//var interval=setInterval(function() {nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem);if(++i>100) clearInterval(interval);}, 50);
-
+	numberOfTask++;
 	var interval=setInterval(function() 
 	{
 		nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem,dt);
-		if(rectangle.pX >=bottomX- Math.cos(angle*Math.PI/180.0)*rectLength  && rectangle.pY >= bottomY- Math.sin(angle*Math.PI/180.0)*rectLength)
+		if(rectangle.pX >=bottomX- Math.cos(angle*Math.PI/180.0)*rectLength  || rectangle.pY >= bottomY- Math.sin(angle*Math.PI/180.0)*rectLength)
 		{
+			numberOfTask--;
+			if(!document.form1.mute.checked)
+				new Audio('cheer.mp3').play();
 			clearInterval(interval);
 		}
-		
+		if(numberOfTask>1)
+		{
+			numberOfTask--;
+			clearInterval(interval);
+		}
+
 	}
 			, dt*1000);
 
@@ -193,7 +219,7 @@ function drawPlane()
 }
 function nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem,dt)
 {
-	document.getElementById('timeDiv').innerHTML="czas: "+rectangle.time;
+	document.getElementById('timeDiv').innerHTML="czas: "+rectangle.time.toFixed(2)+" s"+"<br/>prędkość: "+Math.sqrt(rectangle.vX*rectangle.vX+rectangle.vY*rectangle.vY).toFixed(2)+" m/s";
 	ctx.clearRect(0, 0, canvasElem.width, canvasElem.height);
 
 	ctx.beginPath();
@@ -202,11 +228,11 @@ function nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem,dt)
 	ctx.stroke();
 	rectangle.drawRectangle(ctx,angle);
 	rectangle.nextPosition(dt);
-	
-	
-	
 	//alert(rectangle.pX+" "+ rectangle.pY);
 
 
 }
-
+function showOptions()
+{
+	document.getElementById('Options').style.display= 'block';
+}

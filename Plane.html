@@ -13,25 +13,41 @@
 	
 	<form name="form1"  method="post" style="float: left;" >
 
-		<p>Dlugosc rowni</p>
+		<p>Dlugość równi (metry)</p>
 		<input type="text" size="20" id="length" value="300"/><br/>
 
-		<p>Kat nachylenia (stopnie)</p>
-		<input type="text" size="20" id="angle" value ="60"/><br/>
+		<p>Kąt nachylenia (stopnie)</p>
+		<input type="text" size="20" id="angle" value ="30"/><br/>
 
-		<p>Wspolczynnik Tarcia</p>
+		<p>Współczynnik Tarcia</p>
 		<input type="text" size="20" id="friction" value ="0.1"/><br/>
 		
-		<p>Co jaki czas wyświetlać pozycję?</p>
-		<input type="text" size="20" id="dt" value ="0.1"/><br/>
+
 		
-		<button type='button' onclick="valid()">submit</button> 
+		<button type='button' onclick="valid()">GO</button> 
+		<button type='button' onclick="showOptions()">moreOptions</button> 
+		<input type='checkbox' id="mute" >mute</button> 
+
 	</form>
-	<div id="timeDiv" style="float: left;">
-		czas: 0
+	<div id="Options" style="float: left; display: none; margin-left: 20px;">
+		<form name="form2"  method="post" style="float: left;" >
+
+			<p>Co jaki czas odświeżać obraz?</p>
+			<input type="text" size="20" id="dt" value="0.03"/><br/>
+
+			<p>Długość prostopadłościanu (metry)</p>
+			<input type="text" size="20" id="Length" value ="10"/><br/>
+
+			<p>Wysokość prostopadłościanu (metry)</p>
+			<input type="text" size="20" id="Height" value ="6"/><br/>
+		</form>
+	</div>
+	<div id="timeDiv" style="clear: both;">
+		czas: 0 s<br/>
+		prędkość: 0 m/s
 	</div>
 	<div id="MyDivElement" style="clear: both;" >
-		<canvas id="canv" width="2000" height="4000"></canvas>
+		<canvas id="canv" width="2000" height="2000"></canvas>
 	</div>
 
 </body>
