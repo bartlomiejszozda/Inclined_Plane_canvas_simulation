@@ -70,6 +70,7 @@ function drawRectangle(ctx,angle)
 		nextY=nextY-Math.sin(angle*Math.PI/180.0)*this.width;
 		ctx.lineTo(nextX, nextY);					
 		ctx.lineTo(this.pX, this.pY);
+		ctx.fillStyle="#FF0000";
 		ctx.fill();
 
 }
@@ -109,9 +110,9 @@ function valid()
 		alert ("Length value must be in (0,Plane Length) ");
 		return false;
 	}
-	else if ((parseFloat(document.form2.Height.value)<0)||(parseFloat(document.form2.Height.value)>50))
+	else if ((parseFloat(document.form2.Height.value)<0)||(parseFloat(document.form2.Height.value)>200))
 	{
-		alert ("Height value must be in (0,50] ");
+		alert ("Height value must be in (0,200] ");
 		return false;
 	}
 	else 
@@ -124,10 +125,10 @@ function valid()
 }
 var numberOfTask=0;
 var topX=0;
-var topY=50;
+var topY=20;
 function drawPlane()      
 {
-	const canvasElem = document.getElementById('canv');
+	const canvasElem = document.getElementById('canvas');
 	const ctx = canvasElem.getContext('2d');
 	ctx.clearRect(0, 0, canvasElem.width, canvasElem.height);
 
@@ -142,7 +143,14 @@ function drawPlane()
 	var topY=50;
 	*/
 	var sina=Math.sin(angle*Math.PI/180.0);
-	var cosa=Math.cos(angle*Math.PI/180.0) ;
+	var cosa=Math.cos(angle*Math.PI/180.0);
+	topY=rectHeight*cosa+20;
+	canvasElem.height=length*sina+rectHeight*cosa+20;
+	canvasElem.width=length*cosa+rectHeight*sina+20;
+	/*
+	body.width=canvasElem.width+250;
+	if(body.width<500)
+		body.width=500;*/
 	g=9.81;
 
 	var vX=0.0;
@@ -219,13 +227,15 @@ function drawPlane()
 }
 function nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem,dt)
 {
-	document.getElementById('timeDiv').innerHTML="czas: "+rectangle.time.toFixed(2)+" s"+"<br/>prędkość: "+Math.sqrt(rectangle.vX*rectangle.vX+rectangle.vY*rectangle.vY).toFixed(2)+" m/s";
+	document.getElementById('parametersDiv').innerHTML="czas: "+rectangle.time.toFixed(2)+" s"+"<br/>prędkość: "+Math.sqrt(rectangle.vX*rectangle.vX+rectangle.vY*rectangle.vY).toFixed(2)+" m/s";
 	ctx.clearRect(0, 0, canvasElem.width, canvasElem.height);
 
 	ctx.beginPath();
 	ctx.moveTo(topX,topY);
 	ctx.lineTo(bottomX,bottomY);
-	ctx.stroke();
+	ctx.lineTo(topX,bottomY);
+	ctx.fillStyle="#000000";
+	ctx.fill();
 	rectangle.drawRectangle(ctx,angle);
 	rectangle.nextPosition(dt);
 	//alert(rectangle.pX+" "+ rectangle.pY);
@@ -234,5 +244,13 @@ function nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem,dt)
 }
 function showOptions()
 {
-	document.getElementById('Options').style.display= 'block';
+	document.getElementById('advancedOptions').style.display= 'block';
 }
+//wstawic header ktory bedzie cos tam pisal?
+//co wstawic do nav?
+//do nav mozna wstawic strone "realne przyklady "z video z rownia!
+//pierwsza section moze zawierac opcje (wszyskie) i miec 2 article na zwykle opcje i na dodatkowe opcjen
+//nastepna section moze zawierac article z canvasem i z  rownia oraz inny article z predkosciami czasem i takimi danymi
+//mozna dodac aside element i tam wstawić jakas podstawe fizyczna tego co zrobilismy
+//dodac footer z podpisem mailem itp
+//ulepszyc mail (jakas ikonka)

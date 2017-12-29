@@ -1,54 +1,60 @@
 <!doctype html>
 <html>
 <head>
-<title>JavaScript walidacja formularza</title>
-<script src="Plane.js" type="text/javascript"></script>
-<meta charset="utf-8" />
-<link rel="stylesheet" href="style.css" type="text/css" />
-<meta name="description" content="ti06 bartlomiej szozda" />
-
+	<title>Inclined Plane</title>
+	<script src="Plane.js" type="text/javascript"></script>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<meta name="description" content="Inclined Plane Bartlomiej Szozda" />
 </head>
 <body>
+	<header>
+		<h2>Inclined Plane</h2>
+	</header>
+	<section>
+		<header>
+			<h3>Set your options</h3>
+		</header>
+		<article style="float: left;">
+			<form name="form1"  method="post" >	
+				Inclined Plane length(meters)</br>
+				<input type="text" size="20" id="length" value="300"/></br>
+				Angle (degrees)</br>
+				<input type="text" size="20" id="angle" value ="30"/></br>
+				coefficient of friction</br>
+				<input type="text" size="20" id="friction" value ="0.1"/></br>
+				<button type='button' onclick="valid()">Go</button> 
+				<button type='button' onclick="showOptions()">moreOptions</button> 
+				<input type='checkbox' id="mute">mute</button> 
 
-	
-	<form name="form1"  method="post" style="float: left;" >
-
-		<p>Dlugość równi (metry)</p>
-		<input type="text" size="20" id="length" value="300"/><br/>
-
-		<p>Kąt nachylenia (stopnie)</p>
-		<input type="text" size="20" id="angle" value ="30"/><br/>
-
-		<p>Współczynnik Tarcia</p>
-		<input type="text" size="20" id="friction" value ="0.1"/><br/>
-		
-
-		
-		<button type='button' onclick="valid()">GO</button> 
-		<button type='button' onclick="showOptions()">moreOptions</button> 
-		<input type='checkbox' id="mute" >mute</button> 
-
-	</form>
-	<div id="Options" style="float: left; display: none; margin-left: 20px;">
-		<form name="form2"  method="post" style="float: left;" >
-
-			<p>Co jaki czas odświeżać obraz?</p>
-			<input type="text" size="20" id="dt" value="0.03"/><br/>
-
-			<p>Długość prostopadłościanu (metry)</p>
-			<input type="text" size="20" id="Length" value ="10"/><br/>
-
-			<p>Wysokość prostopadłościanu (metry)</p>
-			<input type="text" size="20" id="Height" value ="6"/><br/>
-		</form>
-	</div>
-	<div id="timeDiv" style="clear: both;">
+			</form>
+		</article>
+		<article id="advancedOptions" style="float: left; display: none; margin-left: 20px;">
+			<form name="form2"  method="post" >
+				Display refresh period</br>
+				<input type="text" size="20" id="dt" value="0.03"/><br/>
+				Cuboid length(meters)</br>
+				<input type="text" size="20" id="Length" value ="10"/><br/>
+				Cuboid height(meters)</br>
+				<input type="text" size="20" id="Height" value ="6"/><br/>
+			</form>
+		</article>
+	</section>
+	<div style="clear: both;"></div>
+	<article id="parametersDiv" style="float: left; min-height: 100px; min-width: 150px; margin: 10px" >
 		czas: 0 s<br/>
 		prędkość: 0 m/s
-	</div>
-	<div id="MyDivElement" style="clear: both;" >
-		<canvas id="canv" width="2000" height="2000"></canvas>
-	</div>
+	</article>
+	<article id="canvasDiv" style="float: left; margins: 10px" >
+		<canvas id="canvas" width="200" height="200" style="display: block;"></canvas>
+		</br>
+	</article>
+	<footer style="clear: both;">
+		author: Bartłomiej Szozda 
+		mail: bartekszozda19@gmail.com
+	</footer>
 
 </body>
 </html>
+
+
