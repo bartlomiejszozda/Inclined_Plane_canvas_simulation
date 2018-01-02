@@ -8,15 +8,14 @@
 	<meta name="description" content="Inclined Plane Bartlomiej Szozda" />
 </head>
 <body>
-	<header>
-		<h2>Inclined Plane</h2>
+	<header style="	border-bottom: 2px dotted brown;">
+		<h2 style="	color: orange;">Inclined Plane</h2>
 	</header>
-	
-	<section>
+	<section 	id="options" align="center";>
 		<header>
 			<h3>Set your options</h3>
 		</header>
-		<article style="">
+		<article 	id="optionsArticle" style="">
 			<form name="form1"  method="post" >	
 				Plane length(meters)</br>
 				<input type="text" size="20" id="length" value="300"/></br>
@@ -24,14 +23,15 @@
 				<input type="text" size="20" id="angle" value ="30"/></br>
 				coefficient of friction</br>
 				<input type="text" size="20" id="friction" value ="0.1"/></br></br>
-				<input type='checkbox' id="mute" checked>Mute</button>
+				<input type='checkbox' id="mute" onclick="muteUnmute()"  checked>Mute</button>
 				&nbsp;&nbsp;&nbsp;
-				<button type='button' onclick="showOptions()" style="width: 96px;" >More options</button> </br></br>
+				<button type='button' id="moreOptionsButton" onclick="showOptions()" style="width: 96px; display: inline-block;" >More options</button> 
+				<button type='button' id="lessOptionsButton" onclick="hideOptions()" style="display: none; width: 96px;">Less options</button></br></br>
 				<button type='button' onclick="valid()" style="width: 170px;">Go</button> 
 
 			</form>
 		</article>
-		<article id="advancedOptions" style="display: none; ">
+		<article id="advancedOptions" style="display: none; 	float: left;">
 			<form name="form2"  method="post" style="float: left; ">
 				Display refresh period</br>
 				<input type="text" size="20" id="dt" value="0.03"/><br/>
@@ -39,29 +39,31 @@
 				<input type="text" size="20" id="Length" value ="10"/><br/>
 				Cuboid height(meters)</br>
 				<input type="text" size="20" id="Height" value ="6"/><br/><br/>
-				<button type='button' onclick="hideOptions()">Less options</button> 
+				 
 
 			</form>
-			<form name="form3"  method="post"  style="float: left; margin-left: 20px">
+			<form name="form3"  method="post"  style="float: left; margin-left: 25px">
 				Acceleration of gravity</br>
 				<input type="text" size="20" id="g" value="9.81"/><br/>
 			</form>
 		</article>
 	</section>
 	<div style="clear: both;"></div>
-	<article id="parametersDiv" style="min-height: 100px; min-width: 150px;" >
-		time: 0 s<br/>
-		velocity: 0 m/s<br/>
-		acceleration: 0 m/s<sup>2</sup><br/>
-		max coefficient:<br/>
-	</article>
-	<article id="canvasDiv" style="" >
-		<canvas id="canvas" width="200" height="200" style="display: block;"></canvas>
-		</br>
-	</article>
-	<footer style="clear: both;">
-		author: Bartłomiej Szozda 
-		mail: bartekszozda19@gmail.com
+	<section 	id="plane" align="center;">
+		<article id="parametersDiv" >
+			time: 0 s<br/>
+			velocity: 0 m/s<br/>
+			acceleration: 0 m/s<sup>2</sup><br/>
+			max coefficient:<br/>
+		</article>
+		<article id="canvasDiv" style="float: none; " align="center;">
+			<canvas id="canvas" width="200" height="175" style="display: block;"></canvas>
+			</br>
+		</article>
+	</section>
+	<footer >
+		author: Bartłomiej Szozda,
+		bartekszozda19@gmail.com
 	</footer>
 
 </body>

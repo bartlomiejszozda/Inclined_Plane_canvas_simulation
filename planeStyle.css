@@ -1,9 +1,46 @@
-body
+html, body
 {
 	background-color: #FFFFE0;
+	text-align: center;
+    height: 100%;
+	min-width: 1000px;
 }
+header
+{
+	font-style: italic;
+	text-align: left;
+
+}
+
+section
+{
+	font-style: oblique;
+}
+#options
+{
+	display: inline-block;
+}
+
+#plane
+{
+	display: inline-block;
+}
+#parametersDiv
+{
+	min-height: 100px; 
+	min-width: 150px; 
+	float: none;
+	
+}
+
 article
 {
+	margin: 10 auto;
 	float: left;
-	margin: 10px;
+	
+}
+footer
+{
+	font-style: oblique;
+	clear: both;
 }

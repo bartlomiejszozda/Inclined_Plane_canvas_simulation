@@ -85,9 +85,9 @@ function valid()
 	}
 
 	
-	else if ((parseFloat(document.form1.length.value)<50)||(parseFloat(document.form1.length.value)>2000))
+	else if ((parseFloat(document.form2.Length.value)>=parseFloat(document.form1.length.value))||(parseFloat(document.form1.length.value)>2000))
 	{
-		alert ("length value must be in [50,2000] ");
+		alert ("length value must be in (Cuboid length (default 10),2000] ");
 		return false;
 	}
 	else if ((parseFloat(document.form1.angle.value)<0)||(parseFloat(document.form1.angle.value)>90))
@@ -95,9 +95,9 @@ function valid()
 		alert ("angle value must be in [0,90] ");
 		return false;
 	}
-	else if ((parseFloat(document.form1.friction.value)<0)||(parseFloat(document.form1.friction.value)>1.0))
+	else if ((parseFloat(document.form1.friction.value)<0))
 	{
-		alert ("angle value must be in [0,1] ");
+		alert ("friction value must be greater or equal than 0 ");
 		return false;
 	}
 	else if ((parseFloat(document.form2.dt.value)<=0)||(parseFloat(document.form2.dt.value)>100))
@@ -121,8 +121,13 @@ function valid()
 		drawPlane();
 		return true;
 	}
-//draw();
 }
+
+//draw();
+var bells = new Audio('bells.mp3'); 
+var bellsFlag= true;
+var cheer = new Audio('cheer.mp3');
+
 var numberOfTask=0;
 var topX=0;
 var topY=20;
@@ -148,6 +153,7 @@ function drawPlane()
 	topY=rectHeight*cosa+20;
 	canvasElem.height=length*sina+rectHeight*cosa+20;
 	canvasElem.width=length*cosa+rectHeight*sina+20;
+
 	/*
 	body.width=canvasElem.width+250;
 	if(body.width<500)
@@ -168,16 +174,37 @@ function drawPlane()
 	//while(rectangle.pX <bottomX- Math.cos(angle*Math.PI/180.0)*rectLength  && rectangle.pY < bottomY- Math.sin(angle*Math.PI/180.0)*rectLength)
 	//var interval=setInterval(function() {nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem);if(++i>100) clearInterval(interval);}, 50);
 	numberOfTask++;
+	
+	
+	bellsFlag=1;
+	bells.addEventListener('ended', function() {
+		if(!document.form1.mute.checked && bellsFlag)
+		{
+			this.currentTime = 0;
+			this.play();
+		}
+	}, false);
+	if(!document.form1.mute.checked && bellsFlag)
+		bells.play();
+
+
+	
+	
 	var interval=setInterval(function() 
 	{
 		nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem,dt);
 		if(rectangle.pX >=bottomX- Math.cos(angle*Math.PI/180.0)*rectLength  || rectangle.pY >= bottomY- Math.sin(angle*Math.PI/180.0)*rectLength)
 		{
 			numberOfTask--;
+			bellsFlag=false;
+			bells.pause();
 			if(!document.form1.mute.checked)
-				new Audio('cheer.mp3').play();
+				cheer.play();
+
 			clearInterval(interval);
+			
 		}
+
 		if(numberOfTask>1)
 		{
 			numberOfTask--;
@@ -186,45 +213,6 @@ function drawPlane()
 
 	}
 			, dt*1000);
-
-	
-	/*	
-	var rectangleTopX=topX;wyczyscil
-	var rectangleTopY=topY;
-	
-
-	while(rectangleTopX <bottomX- Math.cos(angle*Math.PI/180.0)*rectLength  && rectangleTopY <bottomY- Math.sin(angle*Math.PI/180.0)*rectLength   )
-	{
-		ctx.clearRect(0, 0, canvasElem.width, canvasElem.height);
-
-		ctx.beginPath();
-		ctx.moveTo(topX,topY);
-		ctx.lineTo(bottomX,bottomY);
-		ctx.stroke();
-
-		rectangleTopX+=Math.cos(angle*Math.PI/180.0);
-		rectangleTopY+=Math.sin(angle*Math.PI/180.0);
-		
-		ctx.moveTo(rectangleTopX,rectangleTopY);
-		
-		var nextX=rectangleTopX+Math.cos(angle*Math.PI/180.0)*rectLength;
-		var nextY=rectangleTopY+Math.sin(angle*Math.PI/180.0)*rectLength;
-		ctx.lineTo(nextX, nextY);
-		nextX=nextX+Math.sin(angle*Math.PI/180.0)*rectHeight;
-		nextY=nextY-Math.cos(angle*Math.PI/180.0)*rectHeight;
-		ctx.lineTo(nextX, nextY);
-		nextX=nextX-Math.cos(angle*Math.PI/180.0)*rectLength;
-		nextY=nextY-Math.sin(angle*Math.PI/180.0)*rectLength;
-
-		ctx.lineTo(nextX, nextY);
-		ctx.lineTo(rectangleTopX, rectangleTopY);
-		ctx.fill();
-
-	}
-			
-*/
-
-	
 }
 function nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem,dt)
 {
@@ -246,17 +234,33 @@ function nextTime(bottomX,bottomY,angle,length,rectangle,ctx,canvasElem,dt)
 }
 function showOptions()
 {
+
 	document.getElementById('advancedOptions').style.display= 'block';
+	document.getElementById('moreOptionsButton').style.display= 'none';
+		document.getElementById('lessOptionsButton').style.display= 'inline-block';
+
+
 }
 function hideOptions()
 {
 	document.getElementById('advancedOptions').style.display= 'none';
+	document.getElementById('moreOptionsButton').style.display= 'inline-block';
+	document.getElementById('lessOptionsButton').style.display= 'none';
+
 }
-//wstawic header ktory bedzie cos tam pisal?
-//co wstawic do nav?
-//do nav mozna wstawic strone "realne przyklady "z video z rownia!
-//pierwsza section moze zawierac opcje (wszyskie) i miec 2 article na zwykle opcje i na dodatkowe opcjen
-//nastepna section moze zawierac article z canvasem i z  rownia oraz inny article z predkosciami czasem i takimi danymi
-//mozna dodac aside element i tam wstawić jakas podstawe fizyczna tego co zrobilismy
-//dodac footer z podpisem mailem itp
-//ulepszyc mail (jakas ikonka)
+function muteUnmute()
+{
+	if(!document.form1.mute.checked && bellsFlag)
+	{
+		bells.play();
+		//cheer.play();
+	}
+	if(document.form1.mute.checked)
+	{
+		bells.pause();
+		bells.currentTime=0;
+		cheer.pause();
+		cheer.currentTime=0;
+
+	}
+}
