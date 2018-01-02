@@ -1,46 +1,98 @@
-html, body
+html
 {
 	background-color: #FFFFE0;
 	text-align: center;
-    height: 100%;
+    min-height: 1000px;
 	min-width: 1000px;
 }
+
+body
+{
+	background-color: #FFFFE0;
+	text-align: center;
+    min-height: 1000px;
+	min-width: 1000px;
+	border-style: solid;
+	border-width: 1px ;
+	border-color: #8b4513;
+}
+
 header
 {
 	font-style: italic;
-	text-align: left;
+	text-align: center;
+}
 
+#mainHeader
+{
+	border-bottom: 2px dotted #8b4513;
+	color: orange;
+	text-align: left;
 }
 
 section
 {
 	font-style: oblique;
+	margin: auto;
+	display: inline-block;
 }
+
 #options
 {
-	display: inline-block;
+	margin: 10px;
+
 }
 
 #plane
 {
-	display: inline-block;
+	border: 3px solid #Ab8543;
 }
-#parametersDiv
+
+#lessOptionsButton
+{
+	display: none; 
+	width: 96px;
+}
+
+#moreOptionsButton
+{
+	display: inline-block; 
+	width: 96px;
+}
+
+#parametersArticle
 {
 	min-height: 100px; 
 	min-width: 150px; 
 	float: none;
-	
 }
 
 article
 {
 	margin: 10 auto;
 	float: left;
-	
 }
+
+#advancedOptionsArticle
+{
+	display: none; 	
+	float: left;
+}
+
+#advancedOptionsArticle2
+{
+	display: none; 	
+	float: left;
+}
+
+#canvasArticle
+{
+	float: none; 
+	margin: 10px;
+}
+
 footer
 {
 	font-style: oblique;
-	clear: both;
+	float: bottom;
 }
