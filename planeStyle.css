@@ -23,6 +23,11 @@ header
 	text-align: center;
 }
 
+a
+{
+	font-style: italic;
+	font-size: 18px;
+}
 #mainHeader
 {
 	border-bottom: 2px dotted #8b4513;
@@ -43,11 +48,6 @@ section
 
 }
 
-#plane
-{
-	border: 3px solid #Ab8543;
-}
-
 #lessOptionsButton
 {
 	display: none; 
@@ -60,12 +60,7 @@ section
 	width: 96px;
 }
 
-#parametersArticle
-{
-	min-height: 100px; 
-	min-width: 150px; 
-	float: none;
-}
+
 
 article
 {
@@ -84,13 +79,25 @@ article
 	display: none; 	
 	float: left;
 }
-
+#plane
+{
+	min-height: 550px;
+	min-width: 550px;
+	border: 3px solid #Ab8543;
+	margin: 0 auto;
+}
 #canvasArticle
 {
 	float: none; 
 	margin: 10px;
+	
 }
-
+#parametersArticle
+{
+	min-height: 100px; 
+	min-width: 150px; 
+	float: none;
+}
 footer
 {
 	font-style: oblique;
