@@ -1,11 +1,3 @@
-html
-{
-	background-color: #FFFFE0;
-	text-align: center;
-    min-height: 1000px;
-	min-width: 1000px;
-}
-
 body
 {
 	background-color: #FFFFE0;
@@ -60,11 +52,9 @@ section
 	width: 96px;
 }
 
-
-
 article
 {
-	margin: 10 auto;
+	margin: 10px auto;
 	float: left;
 }
 
